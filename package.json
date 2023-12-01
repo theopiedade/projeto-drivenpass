@@ -1,0 +1,23 @@
+{
+  "name": "projeto-drivenpass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "bcrypt": "^5.1.1",
+    "controllers": "^0.0.2",
+    "dotenv": "^16.3.1",
+    "dotenv-expand": "^10.0.0",
+    "http-status": "^1.7.3",
+    "middlewares": "^0.1.1",
+    "prisma": "^5.6.0",
+    "services": "^0.0.3"
+  }
+}
