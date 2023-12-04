@@ -10,15 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "github:faker-js/faker",
     "@prisma/client": "^5.6.0",
     "bcrypt": "^5.1.1",
     "controllers": "^0.0.2",
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
+    "faker": "^5.5.3",
+    "faker-js": "^1.0.0",
     "http-status": "^1.7.3",
     "middlewares": "^0.1.1",
     "prisma": "^5.6.0",
     "services": "^0.0.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/faker": "^6.6.9"
   }
 }
