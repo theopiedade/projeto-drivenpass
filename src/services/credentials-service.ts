@@ -1,14 +1,14 @@
 import { Credential } from '@prisma/client';
 import { duplicatedTitleError } from '@/errors';
 import { credentialRepository } from '@/repositories';
+import Cryptr from 'cryptr'
+const cryptr = new Cryptr(process.env.JWT_SECRET);
 
 
 export async function createCredential({ title, url, username, password, userId}: CredentialParams): Promise<Credential> {
 
 await validateUniqueCredentialTitle(username, title);
 
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('myTotallySecretKey');
 
 const encryptedPassword = cryptr.encrypt(password);
 
@@ -31,18 +31,8 @@ async function validateUniqueCredentialTitle(username: string, title: string) {
 
 async function getCredentials(userId: number) {
   const credentials = await credentialRepository.findCredentials(userId);
-
-  const decryptedCredentials = credentials.map(credential => {
-    let Cryptr = require('cryptr');
-    let cryptr = new Cryptr('mySecretKey');
-    let decryptedPassword = cryptr.decrypt(credential.password);
-    return {
-      ...credential,
-      password: decryptedPassword
-    };
-  });
-
-  return decryptedCredentials;
+  credentials.map((credential) => (credential.password = cryptr.decrypt(credential.password)));
+  return credentials;
 }
 
 export type CredentialParams = Pick<Credential, 'title' | 'url' | 'username' | 'password' | 'userId'>;
