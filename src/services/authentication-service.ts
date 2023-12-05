@@ -37,10 +37,18 @@ async function createSession(userId: number) {
   return token;
 }
 
+async function checkSession(token: string) {
+  const check = await authenticationRepository.findSession(token)
+  if (!check.userId) throw invalidCredentialsError();
+
+  return check.userId;
+}
+
 async function validatePasswordOrFail(password: string, userPassword: string) {
   const isPasswordValid = await bcrypt.compare(password, userPassword);
   if (!isPasswordValid) throw invalidCredentialsError();
 }
+
 
 export type SignInParams = Pick<User, 'email' | 'password'>;
 
@@ -53,4 +61,5 @@ type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password'>;
 
 export const authenticationService = {
   signIn,
+  checkSession
 };

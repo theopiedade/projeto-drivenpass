@@ -44,6 +44,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'DuplicatedTitleError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message,
+    });
+  }
+
   if (err.name === 'UnauthorizedError') {
     return res.status(httpStatus.UNAUTHORIZED).send({
       message: err.message,

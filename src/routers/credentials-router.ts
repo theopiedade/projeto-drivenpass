@@ -2,10 +2,10 @@ import { Router } from 'express';
 
 import { credentialSchema } from '@/schemas';
 import { validateBody } from '@/middlewares';
-import { usersPost } from '@/controllers';
+import { credentialCreate} from '@/controllers';
 
-const usersRouter = Router();
+const credentialsRouter = Router();
 
-usersRouter.post('/', validateBody(credentialSchema), usersPost);
+credentialsRouter.post('/create', validateBody(credentialSchema), credentialCreate);
 
-export { usersRouter };
+export { credentialsRouter };

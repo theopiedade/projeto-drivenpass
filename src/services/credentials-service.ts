@@ -1,18 +1,24 @@
 import { Credential } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import cryptr from 'cryptr';
 import { duplicatedTitleError } from '@/errors';
 import { credentialRepository } from '@/repositories';
 
+
 export async function createCredential({ title, url, username, password, userId}: CredentialParams): Promise<Credential> {
 
-  await validateUniqueCredentialTitle(username, title);
+await validateUniqueCredentialTitle(username, title);
 
-  const hashedPassword = await bcrypt.hash(password, 12);
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotallySecretKey');
+
+const encryptedPassword = cryptr.encrypt(password);
+
+
   return credentialRepository.create({
     title,
     url,
     username,
-    password: hashedPassword,
+    password: encryptedPassword,
     userId
   });
 }
