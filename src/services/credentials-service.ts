@@ -42,7 +42,7 @@ async function getCredentials(userId: number) {
     };
   });
 
-  return credentials;
+  return decryptedCredentials;
 }
 
 export type CredentialParams = Pick<Credential, 'title' | 'url' | 'username' | 'password' | 'userId'>;
