@@ -18,7 +18,18 @@ async function create(data: Prisma.CredentialUncheckedCreateInput) {
   });
 }
 
+async function findCredentials(userId: number) {
+  const params: Prisma.CredentialFindManyArgs = {
+    where: {
+      userId
+    },
+  };
+
+  return prisma.credential.findMany(params);
+}
+
 export const credentialRepository = {
   findByUsernameAndTitle,
   create,
+  findCredentials
 };

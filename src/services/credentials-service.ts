@@ -1,5 +1,4 @@
 import { Credential } from '@prisma/client';
-import cryptr from 'cryptr';
 import { duplicatedTitleError } from '@/errors';
 import { credentialRepository } from '@/repositories';
 
@@ -30,9 +29,25 @@ async function validateUniqueCredentialTitle(username: string, title: string) {
   }
 }
 
+async function getCredentials(userId: number) {
+  const credentials = await credentialRepository.findCredentials(userId);
+
+  const decryptedCredentials = credentials.map(credential => {
+    let Cryptr = require('cryptr');
+    let cryptr = new Cryptr('mySecretKey');
+    let decryptedPassword = cryptr.decrypt(credential.password);
+    return {
+      ...credential,
+      password: decryptedPassword
+    };
+  });
+
+  return credentials;
+}
 
 export type CredentialParams = Pick<Credential, 'title' | 'url' | 'username' | 'password' | 'userId'>;
 
 export const credentialService = {
   createCredential,
+  getCredentials
 };
