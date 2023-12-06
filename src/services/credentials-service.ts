@@ -1,5 +1,5 @@
 import { Credential } from '@prisma/client';
-import { duplicatedTitleError, invalidCredentialsAccess, invalidDataError } from '@/errors';
+import { duplicatedTitleError, invalidCredentialsAccess } from '@/errors';
 import { credentialRepository } from '@/repositories';
 import Cryptr from 'cryptr'
 const cryptr = new Cryptr(process.env.JWT_SECRET);
