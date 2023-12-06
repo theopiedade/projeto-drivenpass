@@ -34,3 +34,13 @@ export async function getCredencialById(req: AuthenticatedRequest, res: Response
   return res.status(httpStatus.OK).send(result);
 }
 
+export async function deleteCredencialById(req: AuthenticatedRequest, res: Response) {
+
+  const { userId } = req;
+
+  const id = Number(req.params.id);
+
+  const result = await credentialService.deleteCredentialById(userId, id);
+
+  return res.status(httpStatus.OK).send(result);
+}

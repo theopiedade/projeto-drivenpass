@@ -42,11 +42,18 @@ async function getCredentialById(userId: number, id: number) {
   return credentials;
 }
 
+async function deleteCredentialById(userId: number, id: number) {
+  const credentials = await credentialRepository.findCredentialById(id);
+  if (credentials.userId !== userId) throw invalidCredentialsAccess();
+  await credentialRepository.deleteCredentialById(id);
+}
+
 
 export type CredentialParams = Pick<Credential, 'title' | 'url' | 'username' | 'password' | 'userId'>;
 
 export const credentialService = {
   createCredential,
   getCredentials,
-  getCredentialById
+  getCredentialById,
+  deleteCredentialById
 };
