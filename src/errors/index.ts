@@ -6,6 +6,7 @@ export * from './not-found-error';
 export * from './unauthorized-error';
 export * from './request-error';
 export * from './invalid-credentials-error';
+export * from './invalid-credentials-access';
 export * from './duplicate-email-error';
 export * from './duplicate-title-error';
 export * from './forbidden-error';

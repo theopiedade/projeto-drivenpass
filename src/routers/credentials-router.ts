@@ -1,8 +1,7 @@
 import { Router } from 'express';
-
 import { credentialSchema } from '@/schemas';
 import { validateBody } from '@/middlewares';
-import { credentialCreate, getCredencials} from '@/controllers';
+import { credentialCreate, getCredencials, getCredencialById} from '@/controllers';
 
 const credentialsRouter = Router();
 

@@ -27,3 +27,15 @@ export async function getCredencials(req: Request, res: Response) {
   return res.status(httpStatus.OK).send(result);
 }
 
+export async function getCredencialById(req: Request, res: Response) {
+  const { id } = req.body
+  const { authorization } = req.headers;
+  const token = authorization?.replace('Bearer ', '');
+
+  const userId = await authenticationService.checkSession(token)
+
+  const result = await credentialService.getCredentialById(userId, id);
+
+  return res.status(httpStatus.OK).send(result);
+}
+

@@ -28,8 +28,18 @@ async function findCredentials(userId: number) {
   return prisma.credential.findMany(params);
 }
 
+async function findCredentialById(id: number) {
+  const params: Prisma.CredentialFindUniqueOrThrowArgs = {
+    where: {
+      id
+    },
+  };
+  return prisma.credential.findUnique(params);
+}
+
 export const credentialRepository = {
   findByUsernameAndTitle,
   create,
-  findCredentials
+  findCredentials,
+  findCredentialById
 };

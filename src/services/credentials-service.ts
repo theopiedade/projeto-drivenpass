@@ -1,5 +1,5 @@
 import { Credential } from '@prisma/client';
-import { duplicatedTitleError } from '@/errors';
+import { duplicatedTitleError, invalidCredentialsAccess, invalidDataError } from '@/errors';
 import { credentialRepository } from '@/repositories';
 import Cryptr from 'cryptr'
 const cryptr = new Cryptr(process.env.JWT_SECRET);
@@ -35,9 +35,18 @@ async function getCredentials(userId: number) {
   return credentials;
 }
 
+async function getCredentialById(userId: number, id: number) {
+  const credentials = await credentialRepository.findCredentialById(id);
+  if (credentials.userId !== userId) throw invalidCredentialsAccess;
+  credentials.password = cryptr.decrypt(credentials.password);
+  return credentials;
+}
+
+
 export type CredentialParams = Pick<Credential, 'title' | 'url' | 'username' | 'password' | 'userId'>;
 
 export const credentialService = {
   createCredential,
-  getCredentials
+  getCredentials,
+  getCredentialById
 };
