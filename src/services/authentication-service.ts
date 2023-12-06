@@ -38,6 +38,7 @@ async function createSession(userId: number) {
 }
 
 async function checkSession(token: string) {
+  if (!token) throw invalidCredentialsError();
   const check = await authenticationRepository.findSession(token)
   if (!check.userId) throw invalidCredentialsError();
 

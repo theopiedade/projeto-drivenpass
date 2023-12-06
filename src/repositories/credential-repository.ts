@@ -28,7 +28,7 @@ async function findCredentials(userId: number) {
   return prisma.credential.findMany(params);
 }
 
-async function findCredentialById(id: number) {
+async function findCredentialById(id: number, select?: Prisma.CredentialSelect) {
   const params: Prisma.CredentialFindUniqueOrThrowArgs = {
     where: {
       id
@@ -36,6 +36,7 @@ async function findCredentialById(id: number) {
   };
   return prisma.credential.findUnique(params);
 }
+
 
 export const credentialRepository = {
   findByUsernameAndTitle,

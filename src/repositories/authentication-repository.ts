@@ -7,13 +7,15 @@ async function createSession(data: Prisma.SessionUncheckedCreateInput) {
   });
 }
 
+
 async function findSession(token: string) {
-  return prisma.session.findFirst({
+  return prisma.session.findUnique({
     where: {
-      token,
-    },
-  });
+        token: token,
+      }
+    });
 }
+
 
 export const authenticationRepository = {
   createSession,

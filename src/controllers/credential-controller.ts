@@ -22,13 +22,17 @@ export async function getCredencials(req: Request, res: Response) {
 
   const userId = await authenticationService.checkSession(token)
 
+  console.log("controllers getCredencials userId:"+userId)
+
   const result = await credentialService.getCredentials(userId);
 
   return res.status(httpStatus.OK).send(result);
 }
 
 export async function getCredencialById(req: Request, res: Response) {
-  const { id } = req.body
+  const id = Number(req.params.id);
+  console.log("credential-controller id:"+id);
+
   const { authorization } = req.headers;
   const token = authorization?.replace('Bearer ', '');
 
