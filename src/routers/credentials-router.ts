@@ -7,7 +7,8 @@ import { credentialCreate, getCredencials, getCredencialById} from '@/controller
 const credentialsRouter = Router()
     .all('/*', authenticateToken)
     .post('/create', validateBody(credentialSchema), credentialCreate)
-    .get('/', getCredencials)
     .get('/:id', getCredencialById)
+    .get('/', getCredencials)
+
 
 export { credentialsRouter };

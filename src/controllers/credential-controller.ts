@@ -1,42 +1,33 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import httpStatus from 'http-status';
+import { AuthenticatedRequest } from '@/middlewares';
 import { CredentialParams, authenticationService, credentialService } from '@/services';
 
 
-export async function credentialCreate(req: Request, res: Response) {
+export async function credentialCreate(req: AuthenticatedRequest, res: Response) {
   const { title, url, username, password } = req.body as CredentialParams;
-  const { authorization } = req.headers;
-  const token = authorization?.replace('Bearer ', '');
-
-
-  const userId = await authenticationService.checkSession(token)
+ 
+  const { userId } = req;
 
   const result = await credentialService.createCredential({ title, url, username, password, userId});
 
   return res.status(httpStatus.OK).send(result);
 }
 
-export async function getCredencials(req: Request, res: Response) {
-  const { authorization } = req.headers;
-  const token = authorization?.replace('Bearer ', '');
+export async function getCredencials(req: AuthenticatedRequest, res: Response) {
 
-  const userId = await authenticationService.checkSession(token)
-
-  console.log("controllers getCredencials userId:"+userId)
+  const { userId } = req;
 
   const result = await credentialService.getCredentials(userId);
 
   return res.status(httpStatus.OK).send(result);
 }
 
-export async function getCredencialById(req: Request, res: Response) {
+export async function getCredencialById(req: AuthenticatedRequest, res: Response) {
+
+  const { userId } = req;
+
   const id = Number(req.params.id);
-  console.log("credential-controller id:"+id);
-
-  const { authorization } = req.headers;
-  const token = authorization?.replace('Bearer ', '');
-
-  const userId = await authenticationService.checkSession(token)
 
   const result = await credentialService.getCredentialById(userId, id);
 

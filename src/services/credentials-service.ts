@@ -37,7 +37,7 @@ async function getCredentials(userId: number) {
 
 async function getCredentialById(userId: number, id: number) {
   const credentials = await credentialRepository.findCredentialById(id);
-  if (credentials.userId !== userId) throw invalidCredentialsAccess;
+  if (credentials.userId !== userId) throw invalidCredentialsAccess();
   credentials.password = cryptr.decrypt(credentials.password);
   return credentials;
 }
