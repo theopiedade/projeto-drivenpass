@@ -5,7 +5,7 @@ import Cryptr from 'cryptr'
 const cryptr = new Cryptr(process.env.JWT_SECRET);
 
 
-export async function createNetwork({ title, network, password, userId}: NetworkParams): Promise<Network> {
+export async function networkCreate({ title, network, password, userId}: NetworkParams): Promise<Network> {
 
 await validateUniqueNetworkTitle(network, title);
 
@@ -51,7 +51,7 @@ async function deleteNetworkById(userId: number, id: number) {
 export type NetworkParams = Pick<Network, 'title' | 'network' | 'password' | 'userId'>;
 
 export const networkService = {
-  createNetwork,
+  networkCreate,
   getNetworks,
   getNetworkById,
   deleteNetworkById

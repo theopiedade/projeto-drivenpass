@@ -9,7 +9,7 @@ export async function networkCreate(req: AuthenticatedRequest, res: Response) {
  
   const { userId } = req;
 
-  const result = await networkService.createNetwork({ title, network, password, userId});
+  const result = await networkService.networkCreate({ title, network, password, userId});
 
   return res.status(httpStatus.OK).send(result);
 }
